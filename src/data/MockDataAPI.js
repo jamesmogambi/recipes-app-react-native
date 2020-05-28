@@ -1,8 +1,8 @@
 import { Text } from 'react-native';
 import React, { Component } from 'react';
-import { recipes, categories, ingredients } from './dataArrays';
+// import { recipes, categories, ingredients } from './dataArrays';
 
-export function getCategoryById(categoryId) {
+export function getCategoryById(categories,categoryId) {
   let category;
   categories.map(data => {
     if (data.id == categoryId) {
@@ -32,7 +32,7 @@ export function getIngredientUrl(ingredientID) {
   return url;
 }
 
-export function getCategoryName(categoryId) {
+export function getCategoryName(categories,categoryId) {
   let name;
   categories.map(data => {
     if (data.id == categoryId) {
@@ -42,27 +42,27 @@ export function getCategoryName(categoryId) {
   return name;
 }
 
-export function getRecipes(categoryId) {
-  const recipesArray = [];
-  recipes.map(data => {
+export function getMenu(menu,categoryId) {
+  const menuArray = [];
+  menu.map(data => {
     if (data.categoryId == categoryId) {
-      recipesArray.push(data);
+      menuArray.push(data);
     }
   });
-  return recipesArray;
+  return menuArray;
 }
 
 // modifica
 export function getRecipesByIngredient(ingredientId) {
-  const recipesArray = [];
+  const menuArray = [];
   recipes.map(data => {
     data.ingredients.map(index => {
       if (index[0] == ingredientId) {
-        recipesArray.push(data);
+        menuArray.push(data);
       }
     });
   });
-  return recipesArray;
+  return menuArray;
 }
 
 export function getNumberOfRecipes(categoryId) {
@@ -90,42 +90,42 @@ export function getAllIngredients(idArray) {
 // functions for search
 export function getRecipesByIngredientName(ingredientName) {
   const nameUpper = ingredientName.toUpperCase();
-  const recipesArray = [];
+  const menuArray = [];
   ingredients.map(data => {
     if (data.name.toUpperCase().includes(nameUpper)) {
       // data.name.yoUpperCase() == nameUpper
       const recipes = getRecipesByIngredient(data.ingredientId);
       const unique = [...new Set(recipes)];
       unique.map(item => {
-        recipesArray.push(item);
+        menuArray.push(item);
       });
     }
   });
-  const uniqueArray = [...new Set(recipesArray)];
+  const uniqueArray = [...new Set(menuArray)];
   return uniqueArray;
 }
 
 export function getRecipesByCategoryName(categoryName) {
   const nameUpper = categoryName.toUpperCase();
-  const recipesArray = [];
+  const menuArray = [];
   categories.map(data => {
     if (data.name.toUpperCase().includes(nameUpper)) {
-      const recipes = getRecipes(data.id); // return a vector of recipes
+      const recipes = getMenu(data.id); // return a vector of recipes
       recipes.map(item => {
-        recipesArray.push(item);
+        menuArray.push(item);
       });
     }
   });
-  return recipesArray;
+  return menuArray;
 }
 
 export function getRecipesByRecipeName(recipeName) {
   const nameUpper = recipeName.toUpperCase();
-  const recipesArray = [];
+  const menuArray = [];
   recipes.map(data => {
     if (data.title.toUpperCase().includes(nameUpper)) {
-      recipesArray.push(data);
+      menuArray.push(data);
     }
   });
-  return recipesArray;
+  return menuArray;
 }

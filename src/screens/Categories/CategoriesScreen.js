@@ -9,20 +9,37 @@ import {
 import styles from './styles';
 import { categories } from '../../data/dataArrays';
 import { getNumberOfRecipes } from '../../data/MockDataAPI';
+import { connect } from 'react-redux';
+import { startSetCategories } from '../../actions/categories';
+import { startSetMenu } from '../../actions/menu';
+import MenuImage from '../../components/MenuImage/MenuImage';
 
-export default class CategoriesScreen extends React.Component {
+
+export class CategoriesScreen extends React.Component {
   static navigationOptions = {
-    title: 'Categories'
+    title: 'Home',
+    headerLeft: (
+      <MenuImage
+        onPress={() => {
+          navigation.openDrawer();
+        }}
+      />
+    )
   };
 
   constructor(props) {
     super(props);
   }
 
+  componentWillMount() {
+    this.props.startSetCategories();
+    this.props.startSetMenu();
+  }
+  
   onPressCategory = item => {
     const title = item.name;
     const category = item;
-    this.props.navigation.navigate('RecipesList', { category, title });
+    this.props.navigation.navigate('Menu', { category, title });
   };
 
   renderCategory = ({ item }) => (
@@ -30,7 +47,8 @@ export default class CategoriesScreen extends React.Component {
       <View style={styles.categoriesItemContainer}>
         <Image style={styles.categoriesPhoto} source={{ uri: item.photo_url }} />
         <Text style={styles.categoriesName}>{item.name}</Text>
-        <Text style={styles.categoriesInfo}>{getNumberOfRecipes(item.id)} recipes</Text>
+        <Text style={styles.categoriesInfo}>{item.time}</Text>
+        {/* <Text style={styles.categoriesInfo}>{getNumberOfRecipes(item.id)} recipes</Text> */}
       </View>
     </TouchableHighlight>
   );
@@ -39,7 +57,7 @@ export default class CategoriesScreen extends React.Component {
     return (
       <View>
         <FlatList
-          data={categories}
+          data={this.props.categories}
           renderItem={this.renderCategory}
           keyExtractor={item => `${item.id}`}
         />
@@ -47,3 +65,12 @@ export default class CategoriesScreen extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return { categories: state.categories }; 
+};
+const mapDispatchToProps = (dispatch, props) => ({
+  startSetCategories: () => dispatch(startSetCategories()),
+  startSetMenu: () => dispatch(startSetMenu()),
+});
+export default connect(mapStateToProps,mapDispatchToProps)(CategoriesScreen);
