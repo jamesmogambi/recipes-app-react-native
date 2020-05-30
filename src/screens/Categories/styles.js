@@ -32,7 +32,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     color: '#333333',
-    marginTop: 8
+    marginTop: 8,
+
   },
   categoriesInfo: {
     marginTop: 3,

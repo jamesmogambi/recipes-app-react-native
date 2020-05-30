@@ -10,7 +10,6 @@ import styles from './styles';
 import { getMenu, getCategoryName } from '../../data/MockDataAPI';
 import { connect } from 'react-redux';
 
-
 export class MenuScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -24,7 +23,9 @@ export class MenuScreen extends React.Component {
 
  
   onPressMenuItem = item => {
-    this.props.navigation.navigate('MenuItem', { item });
+    console.log(item);
+    let title = item.title;
+    this.props.navigation.navigate('MenuItem', { item,title});
   };
 
   renderMenu = ({ item }) => (
@@ -33,14 +34,18 @@ export class MenuScreen extends React.Component {
         <Image style={styles.photo} source={{ uri: item.photo_url }} />
         <Text style={styles.title}>{item.title}</Text>
         {/* <Text style={styles.category}>{getCategoryName(item.categoryId)}</Text> */}
-        <Text style={styles.category}>{this.props.category}</Text>
+        {/* <Text style={styles.category}>{this.props.category}</Text> */}
+        <Text style={styles.category}>{item.price}</Text>
       </View>
     </TouchableHighlight>
   );
 
   render() {
     const { navigation,menu } = this.props;
-    // const item = navigation.getParam('category');
+    const item = navigation.getParam('category');
+    const category = item.name;
+    // console.log(item);
+
     // const recipesArray = getMenu(item.id);
 
     return (
@@ -58,13 +63,11 @@ export class MenuScreen extends React.Component {
   }
 }
 
-
-
 const mapStateToProps = (state,props) => {
   const item = props.navigation.getParam('category');
   return {
      menu: getMenu(state.menu,item.id),
-     category: getCategoryName(state.categories,item.categoryId),
+     category: item.name,
     }; 
 };
 

@@ -11,21 +11,15 @@ import { categories } from '../../data/dataArrays';
 import { getNumberOfRecipes } from '../../data/MockDataAPI';
 import { connect } from 'react-redux';
 import { startSetCategories } from '../../actions/categories';
-import { startSetMenu } from '../../actions/menu';
-import MenuImage from '../../components/MenuImage/MenuImage';
 
 
 export class CategoriesScreen extends React.Component {
-  static navigationOptions = {
-    title: 'Home',
-    headerLeft: (
-      <MenuImage
-        onPress={() => {
-          navigation.openDrawer();
-        }}
-      />
-    )
-  };
+
+  static navigationOptions = ({ navigation }) => ({
+    title: 'Categories',
+    
+  });
+  
 
   constructor(props) {
     super(props);
@@ -33,7 +27,6 @@ export class CategoriesScreen extends React.Component {
 
   componentWillMount() {
     this.props.startSetCategories();
-    this.props.startSetMenu();
   }
   
   onPressCategory = item => {
@@ -47,7 +40,7 @@ export class CategoriesScreen extends React.Component {
       <View style={styles.categoriesItemContainer}>
         <Image style={styles.categoriesPhoto} source={{ uri: item.photo_url }} />
         <Text style={styles.categoriesName}>{item.name}</Text>
-        <Text style={styles.categoriesInfo}>{item.time}</Text>
+        <Text style={styles.categoriesInfo}>Available</Text>
         {/* <Text style={styles.categoriesInfo}>{getNumberOfRecipes(item.id)} recipes</Text> */}
       </View>
     </TouchableHighlight>
@@ -71,6 +64,5 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = (dispatch, props) => ({
   startSetCategories: () => dispatch(startSetCategories()),
-  startSetMenu: () => dispatch(startSetMenu()),
 });
 export default connect(mapStateToProps,mapDispatchToProps)(CategoriesScreen);

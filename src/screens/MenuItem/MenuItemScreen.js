@@ -14,13 +14,16 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { getIngredientName, getCategoryName, getCategoryById } from '../../data/MockDataAPI';
 import BackButton from '../../components/BackButton/BackButton';
 import ViewIngredientsButton from '../../components/ViewIngredientsButton/ViewIngredientsButton';
+import { connect } from 'react-redux';
+
 
 const { width: viewportWidth } = Dimensions.get('window');
 
-export default class MenuItemScreen extends React.Component {
+export class MenuItemScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       headerTransparent: 'true',
+      title: navigation.getParam('title'),
       headerLeft: (
         <BackButton
           onPress={() => {
@@ -46,18 +49,20 @@ export default class MenuItemScreen extends React.Component {
     </TouchableHighlight>
   );
 
-  onPressIngredient = item => {
-    var name = getIngredientName(item);
-    let ingredient = item;
-    this.props.navigation.navigate('Ingredient', { ingredient, name });
-  };
+  // onPressIngredient = item => {
+  //   var name = getIngredientName(item);
+  //   let ingredient = item;
+  //   this.props.navigation.navigate('Ingredient', { ingredient, name });
+  // };
 
   render() {
     const { activeSlide } = this.state;
-    const { navigation } = this.props;
+    const { navigation,category } = this.props;
     const item = navigation.getParam('item');
-    const category = getCategoryById(item.categoryId);
-    const title = getCategoryName(category.id);
+    // const category = getCategoryById(item.categoryId);
+    // const title = getCategoryName(category.id);
+    const title = category.name;
+    console.log(category);
 
     return (
       <ScrollView style={styles.container}>
@@ -98,35 +103,50 @@ export default class MenuItemScreen extends React.Component {
           <Text style={styles.infoRecipeName}>{item.title}</Text>
           <View style={styles.infoContainer}>
             <TouchableHighlight
-              onPress={() => navigation.navigate('RecipesList', { category, title })}
+              onPress={() => navigation.navigate('Menu', { category, title })}
+              // onPress={() => navigation.goBack()}
             >
-              <Text style={styles.category}>{getCategoryName(item.categoryId).toUpperCase()}</Text>
+              {/* <Text style={styles.category}>{getCategoryName(item.categoryId).toUpperCase()}</Text> */}
+              <Text style={styles.category}>{category.name}</Text>
+              
             </TouchableHighlight>
           </View>
-
+          
           <View style={styles.infoContainer}>
             <Image style={styles.infoPhoto} source={require('../../../assets/icons/time.png')} />
-            <Text style={styles.infoRecipe}>{item.time} minutes </Text>
+            {/* <Text style={styles.infoRecipe}>{item.time} minutes </Text> */}
+            <Text style={styles.infoRecipe}>{item.price}</Text>
           </View>
-
           <View style={styles.infoContainer}>
             <ViewIngredientsButton
-              onPress={() => {
-                let ingredients = item.ingredients;
-                let title = 'Ingredients for ' + item.title;
-                navigation.navigate('IngredientsDetails', { ingredients, title });
+               onPress={() => {
+                // let ingredients = item.ingredients;
+                // let title = 'Ingredients for ' + item.title;
+                // let title = 'Menu';
+                // navigation.navigate('IngredientsDetails', { ingredients, title });
+                navigation.navigate( 'Menu', { category, title });
               }}
             />
           </View>
-          <View style={styles.infoContainer}>
+          {/* <View style={styles.infoContainer}>
             <Text style={styles.infoDescriptionRecipe}>{item.description}</Text>
-          </View>
+          </View> */}
         </View>
       </ScrollView>
     );
   }
 }
 
+
+const mapStateToProps = (state,props) => {
+  const item = props.navigation.getParam('item');
+  return {
+    //  menu: getMenu(state.menu,item.id),
+     category: getCategoryById(state.categories,item.categoryId),
+    }; 
+};
+
+export default connect(mapStateToProps)(MenuItemScreen);
 /*cooking steps
 <View style={styles.infoContainer}>
   <Image style={styles.infoPhoto} source={require('../../../assets/icons/info.png')} />

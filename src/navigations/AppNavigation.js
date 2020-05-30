@@ -41,7 +41,7 @@ function MainNavigator() {
 
 const MainNavigator = createStackNavigator(
   {
-    // Home: HomeScreen,
+    Home: HomeScreen,
     Categories: CategoriesScreen,
     MenuItem: MenuItemScreen,
     Menu: MenuScreen,
@@ -50,7 +50,7 @@ const MainNavigator = createStackNavigator(
     IngredientsDetails: IngredientsDetailsScreen
   },
   {
-    initialRouteName: 'Categories',
+    initialRouteName: 'Home',
     // headerMode: 'float',
     defaulfNavigationOptions: ({ navigation }) => ({
       headerTitleStyle: {
