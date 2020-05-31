@@ -88,7 +88,7 @@ export function getAllIngredients(idArray) {
 }
 
 // functions for search
-export function getRecipesByIngredientName(ingredientName) {
+export function getRecipesByIngredientName(ingredients,ingredientName) {
   const nameUpper = ingredientName.toUpperCase();
   const menuArray = [];
   ingredients.map(data => {
@@ -105,7 +105,7 @@ export function getRecipesByIngredientName(ingredientName) {
   return uniqueArray;
 }
 
-export function getRecipesByCategoryName(categoryName) {
+export function getRecipesByCategoryName(categories,categoryName) {
   const nameUpper = categoryName.toUpperCase();
   const menuArray = [];
   categories.map(data => {
@@ -119,7 +119,7 @@ export function getRecipesByCategoryName(categoryName) {
   return menuArray;
 }
 
-export function getRecipesByRecipeName(recipeName) {
+export function getRecipesByRecipeName(recipes,recipeName) {
   const nameUpper = recipeName.toUpperCase();
   const menuArray = [];
   recipes.map(data => {

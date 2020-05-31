@@ -11,6 +11,7 @@ import { getMenu, getCategoryName } from '../../data/MockDataAPI';
 import { connect } from 'react-redux';
 import MenuImage from '../../components/MenuImage/MenuImage';
 import { startSetMenu } from '../../actions/menu';
+import { startSetCategories } from '../../actions/categories';
 
 export class HomeScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -33,6 +34,8 @@ export class HomeScreen extends React.Component {
   
   componentWillMount() {
     this.props.startSetMenu();
+    this.props.startSetCategories();
+
   }
  
   onPressMenuItem = item => {
@@ -79,11 +82,13 @@ const mapStateToProps = (state,props) => {
   // const item = props.navigation.getParam('category');
   return {
      menu: state.menu,
-    //  category: item.name,
+    //  categories: state.categories,
     }; 
 };
 
 const mapDispatchToProps = (dispatch, props) => ({
   startSetMenu: () => dispatch(startSetMenu()),
+  startSetCategories: () => dispatch(startSetCategories()),
+
 });
 export default connect(mapStateToProps,mapDispatchToProps)(HomeScreen);

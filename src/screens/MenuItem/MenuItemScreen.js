@@ -59,10 +59,10 @@ export class MenuItemScreen extends React.Component {
     const { activeSlide } = this.state;
     const { navigation,category } = this.props;
     const item = navigation.getParam('item');
-    // const category = getCategoryById(item.categoryId);
+    // const category = getCategoryById(categories,item.categoryId);
     // const title = getCategoryName(category.id);
     const title = category.name;
-    console.log(category);
+    // console.log(category);
 
     return (
       <ScrollView style={styles.container}>
@@ -141,7 +141,7 @@ export class MenuItemScreen extends React.Component {
 const mapStateToProps = (state,props) => {
   const item = props.navigation.getParam('item');
   return {
-    //  menu: getMenu(state.menu,item.id),
+    //  categories: state.categories
      category: getCategoryById(state.categories,item.categoryId),
     }; 
 };

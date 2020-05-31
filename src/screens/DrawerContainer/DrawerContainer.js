@@ -26,6 +26,14 @@ export default class DrawerContainer extends React.Component {
               navigation.closeDrawer();
             }}
           />
+           <MenuButton
+            title="FEEDBACK"
+            source={require('../../../assets/icons/feedback.png')}
+            onPress={() => {
+              navigation.navigate('FeedBack');
+              navigation.closeDrawer();
+            }}
+          />
           <MenuButton
             title="SEARCH"
             source={require('../../../assets/icons/search.png')}

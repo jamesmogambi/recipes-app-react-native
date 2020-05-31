@@ -23,7 +23,7 @@ export class MenuScreen extends React.Component {
 
  
   onPressMenuItem = item => {
-    console.log(item);
+    // console.log(item);
     let title = item.title;
     this.props.navigation.navigate('MenuItem', { item,title});
   };
