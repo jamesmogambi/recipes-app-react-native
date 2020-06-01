@@ -105,13 +105,13 @@ export function getRecipesByIngredientName(ingredients,ingredientName) {
   return uniqueArray;
 }
 
-export function getRecipesByCategoryName(categories,categoryName) {
+export function getRecipesByCategoryName(categories,menu,categoryName) {
   const nameUpper = categoryName.toUpperCase();
   const menuArray = [];
   categories.map(data => {
     if (data.name.toUpperCase().includes(nameUpper)) {
-      const recipes = getMenu(data.id); // return a vector of recipes
-      recipes.map(item => {
+      const list = getMenu(menu,data.id); // return a vector of recipes
+      list.map(item => {
         menuArray.push(item);
       });
     }

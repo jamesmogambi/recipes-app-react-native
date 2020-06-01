@@ -77,7 +77,7 @@ export  class SearchScreen extends React.Component {
     const { navigation,menu,categories } = this.props;
 
     var recipeArray1 = getRecipesByRecipeName(menu,text);
-    var recipeArray2 = getRecipesByCategoryName(categories,text);
+    var recipeArray2 = getRecipesByCategoryName(categories,menu,text);
     // var recipeArray3 = getRecipesByIngredientName(text);
     var aux = recipeArray1.concat(recipeArray2);
     var recipeArray = [...new Set(aux)];
@@ -98,21 +98,30 @@ export  class SearchScreen extends React.Component {
     return this.state.value;
   };
 
-  onPressRecipe = item => {
+  onPressMenuItem = item => {
     // this.props.navigation.navigate('Recipe', { item });
 
     let title = item.title;
     this.props.navigation.navigate('MenuItem', { item,title});
   };
 
-  renderRecipes = ({ item }) => (
-    <TouchableHighlight underlayColor='rgba(73,182,77,1,0.9)' onPress={() => this.onPressRecipe(item)}>
-      <View style={styles.container}>
-        <Image style={styles.photo} source={{ uri: item.photo_url }} />
-        <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.category}>{getCategoryName(item.categoryId)}</Text>
-      </View>
-    </TouchableHighlight>
+  renderMenu = ({ item }) => (
+    <TouchableHighlight underlayColor='rgba(73,182,77,1,0.9)' onPress={() => this.onPressMenuItem(item)}>
+    <View style={styles.container}>
+      <Image style={styles.photo} source={{ uri: item.photo_url }} />
+      <Text style={styles.title}>{item.title}</Text>
+      {/* <Text style={styles.category}>{getCategoryName(item.categoryId)}</Text> */}
+      {/* <Text style={styles.category}>{this.props.category}</Text> */}
+      <Text style={styles.category}>{item.price}</Text>
+    </View>
+  </TouchableHighlight>
+    // <TouchableHighlight underlayColor='rgba(73,182,77,1,0.9)' onPress={() => this.onPressRecipe(item)}>
+    //   <View style={styles.container}>
+    //     <Image style={styles.photo} source={{ uri: item.photo_url }} />
+    //     <Text style={styles.title}>{item.title}</Text>
+    //     <Text style={styles.category}>{getCategoryName(item.categoryId)}</Text>
+    //   </View>
+    // </TouchableHighlight>
   );
 
   render() {
@@ -123,7 +132,7 @@ export  class SearchScreen extends React.Component {
           showsVerticalScrollIndicator={false}
           numColumns={2}
           data={this.state.data}
-          renderItem={this.renderRecipes}
+          renderItem={this.renderMenu}
           keyExtractor={item => `${item.recipeId}`}
         />
       </View>

@@ -18,11 +18,7 @@ import { Button } from 'react-native-elements';
 export default class FeedBackButton extends React.Component {
   render() {
     return (
-      // <TouchableHighlight underlayColor='rgba(73,182,77,1,0.9)' onPress={this.props.onPress}>
-      //   <View style={styles.container}>
-      //     <Text style={styles.text}>Send FeedBack</Text>
-      //   </View>
-      // </TouchableHighlight>
+    
       <Button
       title="Send FeedBack"
       type="solid"

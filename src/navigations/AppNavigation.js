@@ -14,6 +14,10 @@ import IngredientScreen from '../screens/Ingredient/IngredientScreen';
 import SearchScreen from '../screens/Search/SearchScreen';
 import IngredientsDetailsScreen from '../screens/IngredientsDetails/IngredientsDetailsScreen';
 import FeedBackScreen from '../screens/FeedBack/FeedBackScreen';
+import WelcomeScreen from '../screens/Welcome/WelcomeScreen';
+import LoginScreen from '../screens/Login/LoginScreen';
+import SignUpScreen from '../screens/SignUp/SignUpScreen';
+import ResetPasswordScreen from '../screens/ResetPassword/ResetPasswordScreen';
 
 /* const Stack = createStackNavigator();
 
@@ -42,6 +46,8 @@ function MainNavigator() {
 
 const MainNavigator = createStackNavigator(
   {
+    
+    // Welcome:WelcomeScreen,
     Home: HomeScreen,
     Categories: CategoriesScreen,
     MenuItem: MenuItemScreen,
@@ -85,11 +91,36 @@ function DrawerStack() {
 
 const DrawerStack = createDrawerNavigator(
   {
-    Main: MainNavigator
+    Main: MainNavigator,
+    Welcome: {
+      screen: WelcomeScreen,
+        navigationOptions:{
+          drawerLockMode: 'locked-closed'
+        },
+    },
+    Login: {
+      screen: LoginScreen,
+        navigationOptions:{
+          drawerLockMode: 'locked-closed'
+        },
+    },
+    SignUp: {
+      screen: SignUpScreen,
+        navigationOptions:{
+          drawerLockMode: 'locked-closed'
+        },
+    },
+    ResetPassword: {
+      screen: ResetPasswordScreen,
+        navigationOptions:{
+          drawerLockMode: 'locked-closed'
+        },
+    },
   },
   {
     drawerPosition: 'left',
-    initialRouteName: 'Main',
+    // initialRouteName: 'Main',
+    initialRouteName: 'Welcome',
     drawerWidth: 250,
     contentComponent: DrawerContainer
   }
