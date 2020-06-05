@@ -6,7 +6,7 @@ import styles from './styles';
 import Button from "react-native-button";
 
 
-export default class LoginButton extends React.Component {
+export default class TintButton extends React.Component {
   
   constructor(props) {
     super(props);
@@ -16,17 +16,17 @@ export default class LoginButton extends React.Component {
   render() {
     return (
       <Button
-          containerStyle={styles.loginContainer}
-          style={styles.loginText}
+          containerStyle={styles.signupContainer}
+          style={styles.signupText}
           onPress={this.props.onPress}
         >
-          {this.props.text}
+           {this.props.text}
         </Button>
     );
   }
 }
 
-LoginButton.propTypes = {
+TintButton.propTypes = {
   onPress: PropTypes.func,
   source: PropTypes.number,
   title: PropTypes.string

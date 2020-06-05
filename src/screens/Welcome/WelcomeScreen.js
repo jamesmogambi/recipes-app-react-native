@@ -2,8 +2,8 @@ import React from "react";
 import { Text, View, StyleSheet,Image, ImageBackground } from "react-native";
 // import Button from "react-native-button";
 import styles from './styles';
-import LoginButton from '../../components/LoginButton/LoginButton';
-import SignUpButton from '../../components/SignUpButton/SignUpButton';
+import AuthButton from '../../components/AuthButton/AuthButton';
+import TintButton from '../../components/TintButton/TintButton';
 
 export default class WelcomeScreen extends React.Component {
 
@@ -32,13 +32,14 @@ export default class WelcomeScreen extends React.Component {
 
       {/* <Image source={require('../../../assets/cookie100.png')} style={styles.logo} /> */}
        <View style={styles.card}>
-        <Text style={styles.title}>MessGuide</Text>
-        <LoginButton
+        <Text style={styles.title}>MessGuide App</Text>
+        <AuthButton
           onPress={() => this.props.navigation.navigate('Login')}
           text='Log In'
         />
-         <SignUpButton
+         <TintButton
           onPress={() => this.props.navigation.navigate('SignUp')}
+          text='Sign Up'
          />
 
 

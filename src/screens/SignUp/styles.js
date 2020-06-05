@@ -7,6 +7,10 @@ const styles = StyleSheet.create({
     // justifyContent:'center',
     // alignItems:'center'
   },
+  header:{
+    fontSize:20,
+    color: '#2cd18a'
+  },
   card:{
     alignItems: "center",
     justifyContent: "center",

@@ -61,14 +61,29 @@ const MainNavigator = createStackNavigator(
   {
     initialRouteName: 'Home',
     // headerMode: 'float',
-    defaulfNavigationOptions: ({ navigation }) => ({
-      headerTitleStyle: {
-        fontWeight: 'bold',
-        textAlign: 'center',
-        alignSelf: 'center',
-        flex: 1,
-      }
-    })
+    // defaultNavigationOptions: ({ navigation }) => ({
+    //   headerTitleStyle: {
+    //     fontWeight: 'bold',
+    //     textAlign: 'center',
+    //     alignSelf: 'center',
+    //     flex: 1,
+    //   }
+    // })
+  }
+); 
+
+const AuthStack = createStackNavigator(
+  {
+    
+    Welcome:WelcomeScreen,
+    Login: LoginScreen,
+    SignUp: SignUpScreen,
+    ResetPassword: ResetPasswordScreen,
+
+  },
+  {
+    initialRouteName: 'Welcome',
+   
   }
 ); 
 
@@ -92,35 +107,35 @@ function DrawerStack() {
 const DrawerStack = createDrawerNavigator(
   {
     Main: MainNavigator,
-    Welcome: {
-      screen: WelcomeScreen,
-        navigationOptions:{
-          drawerLockMode: 'locked-closed'
-        },
-    },
-    Login: {
-      screen: LoginScreen,
-        navigationOptions:{
-          drawerLockMode: 'locked-closed'
-        },
-    },
-    SignUp: {
-      screen: SignUpScreen,
-        navigationOptions:{
-          drawerLockMode: 'locked-closed'
-        },
-    },
-    ResetPassword: {
-      screen: ResetPasswordScreen,
-        navigationOptions:{
-          drawerLockMode: 'locked-closed'
-        },
-    },
+    // Welcome: {
+    //   screen: WelcomeScreen,
+    //     navigationOptions:{
+    //       drawerLockMode: 'locked-closed'
+    //     },
+    // },
+    // Login: {
+    //   screen: LoginScreen,
+    //     navigationOptions:{
+    //       drawerLockMode: 'locked-closed'
+    //     },
+    // },
+    // SignUp: {
+    //   screen: SignUpScreen,
+    //     navigationOptions:{
+    //       drawerLockMode: 'locked-closed'
+    //     },
+    // },
+    // ResetPassword: {
+    //   screen: ResetPasswordScreen,
+    //     navigationOptions:{
+    //       drawerLockMode: 'locked-closed'
+    //     },
+    // },
   },
   {
     drawerPosition: 'left',
-    // initialRouteName: 'Main',
-    initialRouteName: 'Welcome',
+    initialRouteName: 'Main',
+    // initialRouteName: 'Welcome',
     drawerWidth: 250,
     contentComponent: DrawerContainer
   }
@@ -135,5 +150,6 @@ const DrawerStack = createDrawerNavigator(
 } */
  
 export default AppContainer = createAppContainer(DrawerStack);
+export default AuthContainer = createAppContainer(AuthStack);
 
 console.disableYellowBox = true;

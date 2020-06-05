@@ -11,6 +11,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  header:{
+    fontSize:20,
+    color: '#2cd18a'
+  },
   image: {
     flex: 1,
     resizeMode: "cover",

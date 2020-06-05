@@ -15,7 +15,7 @@ import { startSetMenu } from '../../actions/menu';
 import { TextField, } from 'react-native-material-textfield';
 import BackButton from '../../components/BackButton/BackButton';
 import { Card } from 'react-native-elements'
-import LoginButton from '../../components/LoginButton/LoginButton';
+import AuthButton from '../../components/AuthButton/AuthButton';
 
 export default class ResetPasswordScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -51,6 +51,7 @@ export default class ResetPasswordScreen extends React.Component {
       <View style={styles.container}>
         <ImageBackground source={{ uri: bg }} style={styles.image}>
         <Card>
+        <Text style={styles.header}>Reset Password</Text>
        <TextField
         label='E-mail'
         tintColor='#2cd18a'
@@ -60,7 +61,7 @@ export default class ResetPasswordScreen extends React.Component {
       
       {/* <FeedBackButton/> */}
       <View style={styles.card}>
-      <LoginButton
+      <AuthButton
           onPress={() => this.props.navigation.navigate('Main')}
           text ='Reset Password'
         />

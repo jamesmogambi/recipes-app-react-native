@@ -17,6 +17,10 @@ const styles = StyleSheet.create({
     justifyContent:'center',
 
   },
+  header:{
+    fontSize:20,
+    color: '#2cd18a'
+  },
   forgotText:{
     fontSize:11,
     color: '#2cd18a'

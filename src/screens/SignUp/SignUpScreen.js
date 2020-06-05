@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   FlatList,
+  Alert,
   Text,
   View,
   TouchableHighlight,
@@ -8,16 +9,15 @@ import {
   ImageBackground
 } from 'react-native';
 import styles from './styles';
-import { getMenu, getCategoryName } from '../../data/MockDataAPI';
 import { connect } from 'react-redux';
-import FeedBackButton from '../../components/FeedBackButton/FeedBackButton';
-import { startSetMenu } from '../../actions/menu';
+import { startSignUp } from '../../actions/auth';
 import { TextField, } from 'react-native-material-textfield';
 import BackButton from '../../components/BackButton/BackButton';
 import { Card } from 'react-native-elements'
-import LoginButton from '../../components/LoginButton/LoginButton';
+import AuthButton from '../../components/AuthButton/AuthButton';
+import Spinner from '../../components/Spinner/Spinner';
 
-export default class SignUpScreen extends React.Component {
+export  class SignUpScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       headerTransparent: 'true',
@@ -36,12 +36,87 @@ export default class SignUpScreen extends React.Component {
     super(props);
 
     this.state = {
-      id:'',
+      email:'',
       password1: '',
       password2: '',
       error:"",
       loading:false
     };
+  }
+
+ 
+  onButtonPress() {
+
+    if (this.state.email && this.state.password1  && this.state.password2)
+     {
+       if (this.state.password1 === this.state.password2 ) {
+        this.setState({ error: '', loading: true });
+        const user =  {
+          email: this.state.email,
+          password:this.state.password1
+        };
+        this.props.startSignUp(user)
+        .then((result) => {
+          if (result === 'success') {
+           
+        this.setState({
+          // email: '',
+          // password1: '',
+          // password2: '',
+          loading: false,
+          error: ''
+        });
+
+             Alert.alert("Success!!!");
+          } else {
+             
+        this.setState({
+          error: 'Authentication Failed!',
+          loading: false
+        });
+              // Alert.alert("Error!!!");
+          }
+    
+        }
+        )
+       } else {
+        Alert.alert("Passwords do not match.");
+         
+       }
+    
+
+   
+    // .catch((error) => {
+    //   this.onLoginFail.bind(this)
+    //   Alert.alert("Error!!!");
+
+    // });
+
+     } ;
+
+   
+    // firebase.auth().signInWithEmailAndPassword(email, password)
+    //   .then(this.onLoginSuccess.bind(this))
+    //   .catch(() => {
+    //     firebase.auth().createUserWithEmailAndPassword(email, password)
+    //       .then(this.onLoginSuccess.bind(this))
+    //       .catch(this.onLoginFail.bind(this));
+    //   });
+  }
+
+  renderButton() {
+    if (this.state.loading) {
+      return <Spinner size="large" />;
+    }
+
+    return (
+       <AuthButton
+       onPress={this.onButtonPress.bind(this)}
+      //  onPress={() => this.props.navigation.navigate('Main')}
+       text = 'Sign Up'
+     />
+    );
+
   }
 
   render() {
@@ -53,11 +128,12 @@ export default class SignUpScreen extends React.Component {
       <View style={styles.container}>
         <ImageBackground source={{ uri: bg }} style={styles.image}>
         <Card>
+         <Text style={styles.header}>Sign Up</Text>
        <TextField
-        label='User-ID'
+        label='Email'
         tintColor='#2cd18a'
-        value={this.state.id}
-        onChangeText={ (id) => this.setState({ id }) }
+        value={this.state.email}
+        onChangeText={ (email) => this.setState({ email }) }
       />
        <TextField
         label='Password'
@@ -73,11 +149,7 @@ export default class SignUpScreen extends React.Component {
       />
       {/* <FeedBackButton/> */}
       <View style={styles.card}>
-
-      <LoginButton
-          onPress={() => this.props.navigation.navigate('Main')}
-          text = 'Sign Up'
-        />
+          {this.renderButton()}
          </View>
 
       </Card>
@@ -95,7 +167,7 @@ export default class SignUpScreen extends React.Component {
 //     }; 
 // };
 
-// const mapDispatchToProps = (dispatch, props) => ({
-//   startSetMenu: () => dispatch(startSetMenu()),
-// });
-// export default connect(mapStateToProps,mapDispatchToProps)(LoginScreen);
+const mapDispatchToProps = (dispatch, props) => ({
+  startSignUp: (user) => dispatch(startSignUp(user)),
+});
+export default connect(undefined,mapDispatchToProps)(SignUpScreen);
